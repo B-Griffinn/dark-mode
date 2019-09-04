@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import useLocalStorage from './useLocalStorage';
 
-export const useDarkMode = () => {
-    const [mode, setMode] = localStorage(key)
+const useDarkMode = (initalValue) => {
+    const [mode, setMode] = useLocalStorage("mode", initalValue)
 
     useEffect(() => {
-        if(mode === true) {
+
+        if(mode) {
         const body = document.querySelector('body');
         body.classList.add('dark-mode');
         } 
@@ -18,3 +19,5 @@ export const useDarkMode = () => {
     // Let's just forward the value and the setter that were returned out of the useLocalStorage call. Return those two values in an array as well.
     return [mode, setMode];
 }
+
+export default useDarkMode;

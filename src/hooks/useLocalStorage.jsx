@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useLocalStorage = (key, initialValue) => {
+function useLocalStorage(key, initialValue) {
 
     //Set up a state property called storedValue.
     const [storedValue, setStoredValue] = useState(() => {
@@ -10,8 +10,9 @@ export const useLocalStorage = (key, initialValue) => {
         const item = window.localStorage.getItem(key);   // <-- Get from local storage by key
 
         // Parse and return stored json or, if undefined, return initialValue
-        return item ? JSON.parse(item) : initialValue; //The JSON.parse() method parses a JSON string, constructing the JavaScript value or object described by the string
-
+        return item ? JSON.parse(item) : initialValue; 
+        //The JSON.parse() method parses a JSON string, constructing the JavaScript value or object described by the string
+        }); //end state prop
         const setValue = value => {
             // Save State
             setStoredValue(value);
@@ -19,8 +20,10 @@ export const useLocalStorage = (key, initialValue) => {
             window.localStorage.setItem(key, JSON.stringify(value));
         };
 
-    }); //end state prop
+   
 
     //return storedValue from this hook in an array
-    return [storedValue];
+    return [storedValue, setValue];
 };
+
+export default useLocalStorage;
